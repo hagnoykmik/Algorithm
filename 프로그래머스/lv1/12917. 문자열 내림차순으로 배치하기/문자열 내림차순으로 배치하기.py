@@ -1,9 +1,8 @@
+
 def solution(s):
-    answer = ''
-    check = []
-    for char in s:
-        check.append(ord(char))
-    check.sort(reverse=True)
-    for char in check:
-        answer += chr(char)
+    s = list(s)
+    s.sort(reverse = True)
+    answer = ""
+    for i in s:
+        answer += i
     return answer
