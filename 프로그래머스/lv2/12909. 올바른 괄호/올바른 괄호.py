@@ -1,17 +1,14 @@
 def solution(s):
     answer = True
     stack = []
+    
+    # () 올바른 괄호
     for bracket in s:
-        if bracket == '(':
-            stack.append(bracket)
-        else:
-            if stack and stack[-1] == '(':
-                stack.pop()
-            else:
-                answer = False
-                break
-
-    if not stack:
-        return answer
-    else:
-        return not answer
+        stack.append(bracket)
+        if len(stack) > 1 and bracket == ')' and stack[-2] == '(':
+            stack.pop()  # ')'
+            stack.pop()  # '('
+    if stack:
+        answer =  False
+    
+    return answer
