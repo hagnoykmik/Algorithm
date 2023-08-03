@@ -8,7 +8,7 @@ def solution(dirs):
         x = sx + move[d][0] # 이전 점 + 이동거리
         y = sy + move[d][1] 
         # 범위를 넘어가지 않아야만 이동리스트에 넣어준다
-        if x <= 5 and x >= -5 and y <= 5 and y >= -5:
+        if -5 <= x <= 5 and -5 <= y <= 5:
             move_list = sorted([(sx,sy),(x,y)])
             # 왼->오와 오->왼은 같은 길이라 중복검사를 해준다
             if move_list not in dir_list:
