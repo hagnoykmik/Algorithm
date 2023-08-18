@@ -1,21 +1,13 @@
 n = int(input())
 
-if n != 1:
-    divisor_list = [True] * (n + 1)
-    n_list = []
-
-    # 소수구하기
-    for num in range(2, int(n ** 0.5) + 1):
-        if divisor_list[num] == True:
-            for i in range(num + num, n+1, num):
-                divisor_list[i] = False
-    n_list = [j for j in range(2, n + 1) if divisor_list[j]]
-
-    # 소인수분해하기
-    j = 0
+# 테스트 케이스가 하나라서 그냥 작은수부터 나누기를 해주면된다
+for i in range(2, n+1):
     while n > 1:
-        if n % n_list[j] == 0:
-            n = n // n_list[j]
-            print(n_list[j])
+        if n % i == 0:
+            n = n // i
+            print(i)
         else:
-            j += 1
+            break
+    if n == 1:
+        break
+        
