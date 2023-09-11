@@ -1,16 +1,14 @@
 '''
 1. 아이디어
 - 치킨집 중에서 m개씩 뽑는다(조합)
-- 집에서 출발했을 때 조합리스트내에 최단거리에 있는 최단 거리 치킨집을 발견하면 거리를 구하고 중단(bfs)
+- 집리스트 돌면서 조합리스트 안에 가게중에 가장 가까운 가게와의 거리를 구한다
 
 2. 시간복잡도
 
 3. 자료구조
-- bfs : queue
 - 지도 : int[][]
 '''
 
-from collections import deque
 from itertools import combinations
 import sys
 input = sys.stdin.readline
@@ -51,6 +49,5 @@ answer = 100000000000
 # 치킨집중에 m개 선택(조합)
 for store in list(combinations(store_list, m)): # 리스트에 안담고 그냥하면 메모리 초과
     answer = min(answer, search(store, home_list))
-
 print(answer)
 
