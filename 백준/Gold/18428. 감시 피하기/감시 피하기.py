@@ -1,10 +1,12 @@
 '''
 1. 아이디어
 - X로 되어 있는 칸 중에 3개인 조합을 다 탐색해서 다 막을 수 있는 위치를 찾는다.
+- 선생님이 방향을 돌면서 장애물이나 학생을 만나면 즉시 중단 -> 그 조합은 실패
 
 2. 시간복잡도
 
 3. 자료구조
+- 복도 : int[][]
 
 '''
 import sys
@@ -17,6 +19,7 @@ def combinations(arr, start):
     if len(arr) == 3:
         # 장애물 설치하러 가기
         answer = search(arr)
+
         # 감시를 다 피할 수 있는 장애물 위치를 찾으면 중단
         if answer == 'YES':
             return answer
@@ -29,6 +32,7 @@ def combinations(arr, start):
         if combinations(arr, i + 1) == 'YES':
             return 'YES'
         arr.pop()
+
     # 다 정상적으로 돌았으면 NO반환
     return 'NO'
 
@@ -36,8 +40,7 @@ def combinations(arr, start):
 # 장애물 놓기
 def search(arr):
     answer = 'NO'
-    # print(arr)
-    student_cnt = 0 # 걸린 학생 수
+
     # 선생님 한명씩 감시
     for teacher in teachers:
         r, c = teacher
@@ -46,9 +49,9 @@ def search(arr):
         dr = [-1, 1, 0, 0] 
         dc = [0, 0, -1, 1]
 
-        for i in range(4):
+        for i in range(4): # 방향
             
-            for j in range(1, n+1):
+            for j in range(1, n+1): # 길이
                 nr = r + (dr[i] * j)
                 nc = c + (dc[i] * j) 
                 
@@ -57,16 +60,11 @@ def search(arr):
                     # 장애물이 있으면
                     if (nr, nc) in arr:
                         break # 그방향 탐색 중단
+                    # 학생을 한명이라도 찾으면 즉시 중단
                     elif corridor[nr][nc] == 'S':
-                        student_cnt += 1
-                        break
-        if student_cnt > 0:
-            break
-    
-    if student_cnt == 0:
-        answer = 'YES'
+                        return 'NO' 
 
-    return answer
+    return 'YES'
 
 
 n = int(input())
