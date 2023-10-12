@@ -1,6 +1,6 @@
 from collections import deque
 import sys
-imput = sys.stdin.readline
+input = sys.stdin.readline
 
 n = int(input())
 l_list = list(map(int, input().split()))
