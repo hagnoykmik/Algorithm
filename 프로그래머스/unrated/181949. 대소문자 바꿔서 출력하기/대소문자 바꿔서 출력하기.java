@@ -6,9 +6,7 @@ public class Solution {
         String a = sc.next();
         String newStr = "";
         
-        for (int i=0; i < a.length(); i++) {
-            char c = a.charAt(i);
-                
+        for (Character c: a.toCharArray()) { // 문자열을 배열로 바꿔준다.
             if (Character.isLowerCase(c)) {
                 newStr += Character.toUpperCase(c);
             } else {
