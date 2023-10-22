@@ -1,13 +1,8 @@
 class Solution {
     public int solution(int a, int b) {
 
-        // int -> str
-        String strA = Integer.toString(a);
-        String strB = Integer.toString(b);
-        
-        // str -> int
-        int answer1 = Integer.valueOf(strA + strB);
-        int answer2 = Integer.valueOf(strB + strA);
+        int answer1 = Integer.parseInt("" + a + b);
+        int answer2 = Integer.parseInt("" + b + a);
         
         if (answer1 > answer2) {
             return answer1;
