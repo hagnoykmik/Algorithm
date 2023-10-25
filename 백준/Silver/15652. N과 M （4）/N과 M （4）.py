@@ -1,27 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def permutation(arr, k):
+def permutation(arr, start):
     # 종료조건
-    if len(arr) == k:
+    if len(arr) == m:
         print(*arr)
         return
     
-    for i in range(n):
-        # 수열은 사전 순으로 증가하는 순서로 출력
-        if len(arr) > 0:
-            if numbers[i] >= arr[-1]:
-                arr.append(numbers[i])
-                permutation(arr, k)
-                # 재귀에서 돌아왔을 때
-                arr.pop()
-        else:
-            arr.append(numbers[i])
-            permutation(arr, k)  
-            arr.pop()
+    for j in range(start, n + 1):
+        arr.append(j)
+        permutation(arr, j)
+        # 재귀에서 돌아왔을 때
+        arr.pop()
 
 
 n, m = map(int, input().split())
 numbers = [num for num in range(1, n + 1)]
 
-permutation([], m)
+for i in numbers:
+    permutation([i], i)
