@@ -1,7 +1,6 @@
 from collections import deque
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(999999)
 
 # 물은 매 분마다 비어있는 칸으로 확장한다. (X, D)는 이동 불가능.
 def water(water_list, w_cnt):
@@ -69,9 +68,9 @@ for i in range(r):
 
 
 while move_list:
+    # 이동하기 전에 물이 찰 공간 체크
     w_cnt = len(water_list)
 
-    # 이동하기 전에 물이 찰 공간 체크
     if water_list:
         water(water_list, w_cnt)
 
