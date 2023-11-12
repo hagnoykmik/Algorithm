@@ -1,6 +1,5 @@
 from collections import deque
 def solution(priorities, location):
-    answer = 0
     priorities_sort = sorted(priorities, reverse=-1) # 우선순위 높은 것부터 정렬
     priorities_q = deque((i, p) for i, p in enumerate(priorities))
     run = [] # 실행시킨 순서
