@@ -1,18 +1,26 @@
-n = int(input())
-bracket = []
+import sys
+input = sys.stdin.readline
 
-for _ in range(n):
-    test = []
-    bracket = list(input())
-    for i in range(len(bracket)):
-        if bracket[i] == '(':
-            test.append(bracket[i])
+t = int(input())
+ps_list = [input().strip() for _ in range(t)]
+
+for ps in ps_list:
+    stack = []
+    for vps in ps:
+        # ( 일 때
+        if vps == '(':
+            stack.append(vps)
+        
+        # ) 일 때
         else:
-            if len(test) != 0 and test[-1] == '(':
-                test.pop()
+            if stack:
+                stack.pop()
             else:
-                test.append(bracket[i])
-    if len(test) != 0:
-        print('NO')
+                print('NO')
+                break
     else:
-        print('YES')
+        if stack:
+            print('NO')
+        else:
+            print('YES')
+
