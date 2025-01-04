@@ -4,18 +4,16 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
-        StringBuilder str = new StringBuilder();
-        int cnt = 0;
+        int length = input.length();
+        StringBuilder result = new StringBuilder();
         
-        for (String s : input.split("")) {
-            str.append(s);
-            cnt += 1;
+        for (int i = 0; i < length; i++) {
+            result.append(input.charAt(i));
             
-            if (cnt == 10) {
-                cnt = 0;
-                str.append("\n");    
-            }
+            if ((i + 1) % 10 == 0) {
+                result.append("\n");
+            }  
         }
-        System.out.print(str);
+        System.out.print(result);   
     }
 }
