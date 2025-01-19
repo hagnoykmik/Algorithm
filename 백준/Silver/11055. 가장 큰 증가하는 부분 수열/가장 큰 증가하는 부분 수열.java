@@ -14,9 +14,9 @@ public class Main {
         }
 
         for (int i = 0; i < n; i++) {
-            d[i] = a[i];
-            for (int j = 0; j < i; j++) {
-                if (a[j] < a[i] && d[i] < d[j] + a[i]) {
+            d[i] = a[i]; // 초기값 ; 자기자신
+            for (int j = 0; j < i; j++) { 
+                if (a[j] < a[i] && d[i] < d[j] + a[i]) { // 증가
                     d[i] = d[j] + a[i];
                 }
             }
