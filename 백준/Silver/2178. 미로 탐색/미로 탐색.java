@@ -19,16 +19,16 @@ public class Main {
     static int[][] maze; // 미로
     static int[][] check; // 방문처리
 
-    public static void bfs(int sx, int sy, int sd, int n, int m) {
+    public static void bfs(int x, int y, int d, int n, int m) {
         Queue<Triple> q = new LinkedList<Triple>();
-        q.add(new Triple(sx, sy, sd)); // 방문큐에 넣는다
-        check[sx][sy] = sd; // 방문처리
+        q.add(new Triple(x, y, d)); // 방문큐에 넣는다
+        check[x][y] = d; // 방문처리
 
         while (!q.isEmpty()) {
             Triple t = q.remove();
-            int x = t.x;
-            int y = t.y;
-            int d = t.d;
+            x = t.x;
+            y = t.y;
+            d = t.d;
 
             // 4가지 방향
             for (int k = 0; k < 4; k++) {
