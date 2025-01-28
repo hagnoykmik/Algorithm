@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static final int MAX = 1000000;
+    public static final int MAX = 1000001;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -14,32 +14,24 @@ public class Main {
         c[n] = true;
         d[n] = 0;
 
-        Queue<Integer> q = new LinkedList<Integer>(); // 현재큐(0초)
-        Queue<Integer> next_q = new LinkedList<Integer>(); // 다음큐(1초)
-
-        q.add(n); // 수빈이 위치
-
-        while (!q.isEmpty()) {
-            int now = q.remove();
-            for (int next : new int[]{now*2, now-1, now+1}) { // 할 수 있는 행동
-                if (next >= 0 && next < MAX) { // 범위 체크
-                    if (c[next] == false) { // 방문한 적 없으면
-                        c[next] = true;// 방문처리
-                        // 각각 맞는 큐에 담아준다
+        ArrayDeque<Integer> q = new ArrayDeque<>(); // 덱 이용
+        q.add(n);
+        
+        while(!q.isEmpty()) {
+            int now = q.poll();
+            for (int next : new int[]{now*2, now-1, now+1}) {
+                if (next >= 0 && next < MAX) {
+                    if (c[next] == false) {
+                        c[next] = true;
                         if (now*2 == next) {
-                            q.add(next); // 현재큐(0초)에 담는다
+                            q.addFirst(next); // 현재큐
                             d[next] = d[now];
                         } else {
-                            next_q.add(next); // 다음큐(1초)에 담는다
+                            q.addLast(next); // 다음큐
                             d[next] = d[now] + 1;
                         }
                     }
                 }
-            }
-            // 현재큐를 다 탐색하면 다음큐가 현재큐가 된다
-            if (q.isEmpty()) {
-                q = next_q;
-                next_q = new LinkedList<Integer>(); // 다음큐 초기화
             }
         }
         System.out.println(d[k]);
