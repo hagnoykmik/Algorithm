@@ -1,24 +1,28 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
-   public static void main(String[] args) throws IOException {
+    public static int go(int count, int sum, int goal) {
+        // 불가능한 경우
+        if (sum > goal) return 0;
+
+        // 정답을 찾은 경우
+        if (sum == goal) return 1;
+
+        int now = 0;
+        for (int i = 1; i <= 3; i++) {
+            now += go(count+1, sum+i, goal); // 다음 경우 호출
+        }
+        return now;
+    }
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        int[] d = new int[12];
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int T = Integer.parseInt(br.readLine());
 
-        d[0] = 1; // 1,2,3을 모두 0번사용하는 1가지 방법
-        d[1] = 1; // 1 1번 -> 1가지 방법
-        d[2] = 2; // d[0] + 1, d[1] + 1 -> 2가지 방법
-
-        for (int i = 3; i <= 11; i++) {
-            d[i] = d[i-1] + d[i-2] + d[i-3];
-        }
-
-        while (t-- > 0) {
+        while (T-- > 0) {
             int n = Integer.parseInt(br.readLine());
-            bw.write(d[n] + "\n");
+            System.out.println(go(0, 0, n));
         }
-        bw.flush();
     }
 }
