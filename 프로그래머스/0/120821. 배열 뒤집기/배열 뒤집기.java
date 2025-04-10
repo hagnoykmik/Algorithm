@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.*;
-
 class Solution {
     public int[] solution(int[] num_list) {
         int n = num_list.length;
