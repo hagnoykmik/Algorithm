@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 class Triple {
-    int x;
-    int y;
-    int d;
+    int x; // x좌표
+    int y; // y좌표
+    int d; // 거리
     
     public Triple (int x, int y, int d) {
         this.x = x;
@@ -18,13 +18,14 @@ class Solution {
     static int[] dy = {0, 0, -1, 1};
     
     public boolean go(int x, int y, int d, String[] room) {
-        Queue<Triple> q = new LinkedList<>(); // 응시자를 담는다
+        Queue<Triple> q = new LinkedList<>(); // 응시자를 담을 q
         boolean[][] visited = new boolean[5][5]; // 방문체크
         
         // 응시자 자리 q에 담고, 방문처리
         q.add(new Triple(x, y, d));
         visited[x][y] = true;
         
+        // 주변 거리에 P있는지 검사
         while (!q.isEmpty()) {
             Triple t = q.poll();
             int sx = t.x;
@@ -40,13 +41,13 @@ class Solution {
                 
                 if (0 <= nx && nx < 5 && 0 <= ny && ny < 5) { // 범위 내에 있고
                     if (!visited[nx][ny]) { // 방문 안했고
-                        if (room[nx].charAt(ny) != 'X') { // 빈 테이블이면 이동가능(그 다음 자리까지 검사해야함)
+                        if (room[nx].charAt(ny) != 'X') { // X면 더이상 검사 안해도 됨
                             visited[nx][ny] = true;
-                            if (room[nx].charAt(ny) == 'P') {
+                            if (room[nx].charAt(ny) == 'P') { // 거리 2이내에 응시자 있으면
                                 return false; // 거리두기 안지켜짐
                             }
                             if (nd < 2) { // 맨해튼 거리 2이하이면
-                                q.add(new Triple(nx, ny, d+1));
+                                q.add(new Triple(nx, ny, d+1)); // q에 넣고 탐색
                             }
                         } 
                     } 
@@ -71,7 +72,7 @@ class Solution {
                     }
                 }
             }
-            if (possible) answer[i] = 1;
+            if (possible) answer[i] = 1; // 거리두기 지켜졌으면 1, 아니면 그대로 0
         }
         return answer;
     }
