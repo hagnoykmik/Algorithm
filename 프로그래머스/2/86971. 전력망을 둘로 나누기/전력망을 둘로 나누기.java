@@ -1,54 +1,54 @@
 import java.util.*;
 
-/*
-아이디어: wires를 순회하면서 순서대로 한개씩 제외하고 bfs해서 덩어리 구하기
-*/
 class Solution {
-    // 덩어리 구하기 메서드
-    public static int bfs (int start, boolean[] check, ArrayList<Integer>[] a, int cnt) {
-        ArrayDeque<Integer> q = new ArrayDeque<>();
-        q.add(start); // 시작점을 큐에 넣고
-        check[start] = true; // 방문 처리
-        
-        while (!q.isEmpty()) {
-            int x = q.poll();
-            for (int nx : a[x]) {
-                if (!check[nx]) {
-                    q.add(nx);
-                    check[nx] = true;
-                    cnt++;
-                }
-            }
-        }
-        return cnt;
-    }
-    
     public int solution(int n, int[][] wires) {
-        int answer = n;
-        int l = wires.length;
-        
-        // n번 순회하면서 0번 부터 n-1번까지 한번씩 제외해보기
-        for (int i = 0; i < l; i++) {
-            // 0. 인접리스트 만들기
-            ArrayList<Integer>[] a = new ArrayList[n+1];
-            for (int j = 0; j <= n; j++) {
-                a[j] = new ArrayList<>();
+        // 최소 차이를 저장할 변수. 초기에는 최대값으로 설정.
+        int minDiff = Integer.MAX_VALUE;
+
+        // wires 배열의 각 간선을 하나씩 끊어본다.
+        for (int i = 0; i < wires.length; i++) {
+            // 인접 리스트 초기화 (1번부터 n번까지 사용하므로 n+1)
+            ArrayList<Integer>[] graph = new ArrayList[n + 1];
+            for (int j = 1; j <= n; j++) {
+                graph[j] = new ArrayList<>();
             }
-            
-            // 1. 인접리스트 채우기
-            for (int j = 0; j < l; j++) {
-                if (j != i) { // 0번째부터 n-1번째까지 한개씩 끊어보기
-                    // 인접 리스트 만들기
-                    a[wires[j][0]].add(wires[j][1]);
-                    a[wires[j][1]].add(wires[j][0]);
-                }
+
+            // 간선 정보 추가 (단, 현재 i번째 간선은 제외)
+            for (int j = 0; j < wires.length; j++) {
+                if (i == j) continue; // 이 간선은 "끊었다"고 가정함
+                int a = wires[j][0];
+                int b = wires[j][1];
+                graph[a].add(b);
+                graph[b].add(a);
             }
-            
-            // 2. bfs 탐색으로 덩어리 구하기
-            boolean[] check = new boolean[n+1]; // 방문체크
-            int top = bfs(1, check, a, 1);
-            answer = Math.min(answer, Math.abs(n-top-top));
+
+            // 방문 체크 배열
+            boolean[] visited = new boolean[n + 1];
+
+            // DFS를 통해 하나의 연결 덩어리의 크기를 구함
+            int subtreeSize = dfs(1, graph, visited);
+
+            // 두 전력망의 차이 = |전체 노드 수 - 2 * 서브트리 크기|
+            int diff = Math.abs(n - 2 * subtreeSize);
+
+            // 최소 차이 갱신
+            minDiff = Math.min(minDiff, diff);
         }
-        return answer;
+
+        return minDiff;
+    }
+
+    // DFS를 이용해 현재 노드에서 이어진 서브트리의 크기를 계산
+    public int dfs(int node, ArrayList<Integer>[] graph, boolean[] visited) {
+        visited[node] = true; // 현재 노드 방문 처리
+        int count = 1; // 현재 노드 포함해서 시작
+
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                count += dfs(neighbor, graph, visited); // 재귀 호출로 자식 노드 탐색
+            }
+        }
+
+        return count;
     }
 }
