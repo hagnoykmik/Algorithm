@@ -1,19 +1,10 @@
 import java.util.*;
 
+// 리스트 슬라이싱
+// List.subList() : 리스트에서 사용
+// Arrays.copyRange() : 배열에서 사용 => 적합!
 class Solution {
     public int[] solution(int[] num_list, int n) {
-        ArrayList<Integer> a = new ArrayList<>();
-        
-        for (int i = n-1; i < num_list.length; i++) {
-            a.add(num_list[i]);
-        }
-        
-        int l = a.size();
-        int[] answer = new int[l];
-        for (int i = 0; i < l; i++) {
-            answer[i] = a.get(i);
-        }
-        
-        return answer;
+        return Arrays.copyOfRange(num_list, n-1, num_list.length);
     }
 }
