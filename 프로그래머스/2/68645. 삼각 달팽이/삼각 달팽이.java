@@ -23,15 +23,15 @@ class Solution {
             int nx = x + dx[i];
             int ny = y + dy[i];
             
-            if (0 <= nx && nx < n && 0 <= ny && ny < n && a[nx][ny] == 0)  { // 이동할 수 있는 범위이고 비어있으면(0) 이동
+            if (0 <= nx && nx < n && 0 <= ny && ny < n && a[nx][ny] == 0)  { 
+            // 이동할 수 있는 범위이고 비어있으면(0) 이동
                 x = nx;
                 y = ny;
                 a[x][y] = k++;
+                cnt--;
             } else {
                 i = (i+1) % 3; // 방향 바꾸기
-                cnt++;
             }
-            cnt--;
         }
         
         // 2. 배열에 담기
