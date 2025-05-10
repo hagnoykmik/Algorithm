@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Solution {
     public int solution(int n) {
+// 첫번째 풀이: bottom-up => 효율성 0점
 //         int[] d = new int[1000000000];
 //         d[0] = 0;
         
@@ -12,7 +13,9 @@ public class Solution {
 //                 d[k] = d[k-1] + 1;
 //             }
 //         }
-        // return d[n];
+//         return d[n];
+        
+        // 두번째 풀이: top-down
         int ans = 0;
         while (n > 0) {
             if (n % 2 == 0) {
